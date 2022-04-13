@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 17:42:50
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 22:12:19
+ * @LastEditTime: 2022-04-13 23:55:19
  * @FilePath: /first-low-code-demo/components/DragControlItem/index.tsx
  */
 import React from 'react';
@@ -42,7 +42,7 @@ const DragControlItem: React.FC<DragControlItemProps> = props => {
     },
   });
   // 拖动时的 style
-  const opacity = collectProps.isDragging ? 0 : 1;
+  const opacity = collectProps.isDragging ? 0.1 : 1;
   return (
     <div
       ref={node => drag(node)}

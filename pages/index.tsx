@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 1985-10-26 16:15:00
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 23:30:46
+ * @LastEditTime: 2022-04-13 23:37:46
  * @FilePath: /first-low-code-demo/pages/index.tsx
  */
 import type { NextPage } from 'next';
@@ -30,12 +30,8 @@ const controlsList: Array<ControlsItem> = [
 
 const Home: NextPage = () => {
   const [dragList, setDragList] = useState<DragListItem[]>([]);
-  // 渲染控件区
-  const renderControlsList = function () {
-    return controlsList.map(({ text, type }, index) => (
-      <DragControlItem {...{ text, type, index }} key={type} />
-    ));
-  };
+
+  // 查询某一个可被拖拽组件
   const findItem = useCallback(
     (id: number) => {
       const card = dragList.find(_card => _card.id === id)!;
@@ -47,7 +43,7 @@ const Home: NextPage = () => {
     },
     [dragList]
   );
-
+  // 移动某一个可被拖拽组件
   const moveItem = useCallback(
     function (dragId: number, atIndex: number) {
       let { targetIndex, card } = findItem(dragId);
@@ -59,17 +55,24 @@ const Home: NextPage = () => {
     },
     [dragList, findItem]
   );
-  // 移动控件
-  function moveControlItem(type: ControlsType) {
-    console.log(type);
 
+  // 移动控件
+  const moveControlItem = useCallback((type: ControlsType) => {
     setDragList(oldState => {
       let _dragList = [...oldState, { type, id: getUuid() }];
       return _dragList;
     });
-  }
-  // 渲染
-  const renderDragArea = useCallback(
+  }, []);
+
+  // 渲染控件区
+  const renderControlsList = useCallback(function () {
+    return controlsList.map(({ text, type }, index) => (
+      <DragControlItem {...{ text, type, index }} key={type} />
+    ));
+  }, []);
+
+  // 渲染可拖拽区域
+  const renderDndArea = useCallback(
     () =>
       dragList.map(({ type, id }, index) => (
         <DnDContainer key={id} {...{ type, id, index, moveItem, findItem }}>
@@ -83,9 +86,9 @@ const Home: NextPage = () => {
     <DndProvider backend={HTML5Backend}>
       <div className={styles.main}>
         <div className={styles.controls}>{renderControlsList()}</div>
-        <div className={styles.drag_area}>
+        <div className={styles.dnd_area}>
           <DropContainer {...{ moveControlItem }}>
-            {renderDragArea()}
+            {renderDndArea()}
           </DropContainer>
         </div>
       </div>
