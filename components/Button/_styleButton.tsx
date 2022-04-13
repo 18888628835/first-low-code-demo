@@ -31,7 +31,7 @@ export const Wrap = styled.button`
     cursor: pointer;
     outline: none;
     padding: 4px 15px;
-    margin: 8px;
+    width: 100%;
     transition: all 0.3s;
     border: none;
     border-radius: 4px;
