@@ -2,13 +2,13 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 17:22:00
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 20:53:12
- * @FilePath: /first-low-code-demo/components/DnDButton/index.tsx
+ * @LastEditTime: 2022-04-13 23:30:18
+ * @FilePath: /first-low-code-demo/components/ButtonColorController/index.tsx
  */
 import React from 'react';
 import Button from '../Button';
 import { BaseButtonProps } from '../Button/types';
-interface DnDButtonProps {
+interface ButtonColorControllerProps {
   id: number;
 }
 let allBtnType: Array<BaseButtonProps['btnType']> = [
@@ -16,7 +16,7 @@ let allBtnType: Array<BaseButtonProps['btnType']> = [
   'default',
   'primary',
 ];
-const DnDButton: React.FC<DnDButtonProps> = props => {
+const ButtonColorController: React.FC<ButtonColorControllerProps> = props => {
   const { id } = props;
   let index = id % allBtnType.length;
 
@@ -29,4 +29,4 @@ const DnDButton: React.FC<DnDButtonProps> = props => {
   );
 };
 
-export default DnDButton;
+export default ButtonColorController;

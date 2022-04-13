@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 19:48:56
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 20:16:52
+ * @LastEditTime: 2022-04-13 23:21:03
  * @FilePath: /first-low-code-demo/components/DropContainer/index.tsx
  */
 import { ControlsType } from '@/pages/index';
@@ -13,7 +13,7 @@ import { useDrop } from 'react-dnd';
 interface DropContainerProps extends HTMLAttributes<HTMLDivElement> {
   moveControlItem: (type: ControlsType) => void;
 }
-
+// 页面拖放区域
 const DropContainer: React.FC<DropContainerProps> = props => {
   const { moveControlItem, children, ...args } = props;
 
@@ -27,7 +27,7 @@ const DropContainer: React.FC<DropContainerProps> = props => {
   });
 
   return (
-    <div {...{ ...args }} ref={node => drop(node)}>
+    <div {...{ ...args }} ref={node => drop(node)} style={{ height: '100%' }}>
       {props.children}
     </div>
   );

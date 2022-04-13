@@ -2,23 +2,22 @@
  * @Author: 邱彦兮
  * @Date: 1985-10-26 16:15:00
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 20:17:17
+ * @LastEditTime: 2022-04-13 23:30:46
  * @FilePath: /first-low-code-demo/pages/index.tsx
  */
 import type { NextPage } from 'next';
 import styles from '../styles/Home.module.css';
-import DnDButton from '@/components/DnDButton';
+import ButtonColorController from '@/components/ButtonColorController';
 import DragControlItem from '@/components/DragControlItem';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useCallback, useState } from 'react';
 import DropContainer from '@/components/DropContainer';
 import { getUuid } from '@/utils/uuid';
+import DnDContainer from '@/components/DndContainer';
 
 const strategy = {
-  BUTTON: (id: number, index: number) => (
-    <DnDButton {...{ id, index }} key={id} />
-  ),
+  BUTTON: 'BUTTON',
 };
 
 export type ControlsType = keyof typeof strategy;
@@ -31,27 +30,64 @@ const controlsList: Array<ControlsItem> = [
 
 const Home: NextPage = () => {
   const [dragList, setDragList] = useState<DragListItem[]>([]);
+  // 渲染控件区
   const renderControlsList = function () {
     return controlsList.map(({ text, type }, index) => (
       <DragControlItem {...{ text, type, index }} key={type} />
     ));
   };
-  const renderDragArea = useCallback(
-    () => dragList.map(({ type, id }, index) => strategy[type](id, index)),
+  const findItem = useCallback(
+    (id: number) => {
+      const card = dragList.find(_card => _card.id === id)!;
+      const cardIndex = dragList.indexOf(card);
+      return {
+        card,
+        targetIndex: cardIndex,
+      };
+    },
     [dragList]
   );
+
+  const moveItem = useCallback(
+    function (dragId: number, atIndex: number) {
+      let { targetIndex, card } = findItem(dragId);
+      let _dragList = [...dragList];
+
+      _dragList.splice(targetIndex, 1);
+      _dragList.splice(atIndex, 0, card);
+      setDragList(_dragList);
+    },
+    [dragList, findItem]
+  );
+  // 移动控件
   function moveControlItem(type: ControlsType) {
-    const _dragList = [...dragList, { type, id: getUuid() }];
-    setDragList(_dragList);
+    console.log(type);
+
+    setDragList(oldState => {
+      let _dragList = [...oldState, { type, id: getUuid() }];
+      return _dragList;
+    });
   }
+  // 渲染
+  const renderDragArea = useCallback(
+    () =>
+      dragList.map(({ type, id }, index) => (
+        <DnDContainer key={id} {...{ type, id, index, moveItem, findItem }}>
+          <ButtonColorController {...{ id }} />
+        </DnDContainer>
+      )),
+    [dragList, findItem, moveItem]
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.main}>
         <div className={styles.controls}>{renderControlsList()}</div>
-        <DropContainer {...{ moveControlItem, className: styles.drag_area }}>
-          {renderDragArea()}
-        </DropContainer>
+        <div className={styles.drag_area}>
+          <DropContainer {...{ moveControlItem }}>
+            {renderDragArea()}
+          </DropContainer>
+        </div>
       </div>
     </DndProvider>
   );
