@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 17:42:50
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 18:15:08
+ * @LastEditTime: 2022-04-13 20:07:03
  * @FilePath: /first-low-code-demo/components/DragControlItem/index.tsx
  */
 import React from 'react';
@@ -32,9 +32,9 @@ const DragControlItem: React.FC<DragControlItemProps> = props => {
     }),
     // 当拖拽结束后触发 end 回调
     end: (item, monitor) => {
+      // 这里的 item 是 item 属性里面的
       // 用户有没有真的完成【放下】的动作,真放下了为 true
       const didDrop = monitor.didDrop();
-      // 这里的 item 是 item 属性里面的
 
       if (!didDrop) {
         console.log('didDrop', didDrop);
