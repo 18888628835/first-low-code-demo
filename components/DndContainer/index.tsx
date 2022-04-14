@@ -2,23 +2,17 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 23:25:56
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-14 10:24:58
+ * @LastEditTime: 2022-04-14 11:00:32
  * @FilePath: /first-low-code-demo/components/DndContainer/index.tsx
  */
-/*
- * @Author: 邱彦兮
- * @Date: 2022-04-13 22:08:53
- * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 23:23:52
- * @FilePath: /first-low-code-demo/components/DnDContainer.tsx
- */
+
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import styles from '@/styles/Home.module.css';
 import * as ItemTypes from '@/pages/ItemTypes';
 
 const DnDContainer: React.FC<any> = props => {
-  const { id, index, moveItem, findItem, type } = props;
+  const { id, index, moveItem, findItem, type, removeControlItem } = props;
   // 提供了一种将组件作为拖动源连接到 React-dnd 系统中的方法
   // useDrag接受 sepc（规范）返回collect 返回的对象
   // drag是 dragSource Ref 拖动源的连接器，连接真实 DOM 和 React Dnd 系统
@@ -67,7 +61,14 @@ const DnDContainer: React.FC<any> = props => {
       style={{ opacity }}
       ref={node => drag(drop(node))}
     >
-      <div className={styles.delete_icon}>x</div>
+      <div
+        onClick={() => {
+          removeControlItem(id);
+        }}
+        className={styles.delete_icon}
+      >
+        x
+      </div>
       {props.children}
     </div>
   );

@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 1985-10-26 16:15:00
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 23:37:46
+ * @LastEditTime: 2022-04-14 11:03:08
  * @FilePath: /first-low-code-demo/pages/index.tsx
  */
 import type { NextPage } from 'next';
@@ -64,6 +64,17 @@ const Home: NextPage = () => {
     });
   }, []);
 
+  const removeControlItem = useCallback(
+    (id: number) => {
+      const { targetIndex } = findItem(id);
+      setDragList(oldState => {
+        let _dragList = [...oldState];
+        _dragList.splice(targetIndex, 1);
+        return _dragList;
+      });
+    },
+    [setDragList, findItem]
+  );
   // 渲染控件区
   const renderControlsList = useCallback(function () {
     return controlsList.map(({ text, type }, index) => (
@@ -75,11 +86,14 @@ const Home: NextPage = () => {
   const renderDndArea = useCallback(
     () =>
       dragList.map(({ type, id }, index) => (
-        <DnDContainer key={id} {...{ type, id, index, moveItem, findItem }}>
+        <DnDContainer
+          key={id}
+          {...{ type, id, index, moveItem, findItem, removeControlItem }}
+        >
           <ButtonColorController {...{ id }} />
         </DnDContainer>
       )),
-    [dragList, findItem, moveItem]
+    [dragList, findItem, moveItem, removeControlItem]
   );
 
   return (
