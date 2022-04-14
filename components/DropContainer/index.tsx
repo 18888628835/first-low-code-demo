@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 19:48:56
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 23:21:03
+ * @LastEditTime: 2022-04-14 09:37:06
  * @FilePath: /first-low-code-demo/components/DropContainer/index.tsx
  */
 import { ControlsType } from '@/pages/index';
@@ -27,7 +27,11 @@ const DropContainer: React.FC<DropContainerProps> = props => {
   });
 
   return (
-    <div {...{ ...args }} ref={node => drop(node)} style={{ height: '100%' }}>
+    <div
+      {...{ ...args }}
+      ref={node => drop(node)}
+      style={{ height: '100%', position: 'relative' }}
+    >
       {props.children}
     </div>
   );
