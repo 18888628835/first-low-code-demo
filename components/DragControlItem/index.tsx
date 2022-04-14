@@ -2,14 +2,15 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 17:42:50
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-13 23:55:19
+ * @LastEditTime: 2022-04-14 14:50:40
  * @FilePath: /first-low-code-demo/components/DragControlItem/index.tsx
  */
 import React from 'react';
-import { useDrag } from 'react-dnd';
+import { DragPreviewImage, useDrag } from 'react-dnd';
 import styles from '@/styles/Home.module.css';
 import * as ItemTypes from '@/pages/ItemTypes';
 import { ControlsType } from '@/pages/index';
+import { buttonPreview } from 'public/buttonPreview';
 
 interface DragControlItemProps {
   text: string;
@@ -21,7 +22,7 @@ const DragControlItem: React.FC<DragControlItemProps> = props => {
   // 提供了一种将组件作为拖动源连接到 React-dnd 系统中的方法
   // useDrag接受 sepc（规范）返回collect 返回的对象
   // drag是 dragSource Ref 拖动源的连接器，连接真实 DOM 和 React Dnd 系统
-  let [collectProps, drag] = useDrag({
+  let [collectProps, drag, preview] = useDrag({
     type: ItemTypes.DragControlItem,
     // item 是必须的，必须是一个函数或者对象，用于描述拖动源的普通JS对象
     item: () => ({ text, index, type }),
@@ -44,13 +45,16 @@ const DragControlItem: React.FC<DragControlItemProps> = props => {
   // 拖动时的 style
   const opacity = collectProps.isDragging ? 0.1 : 1;
   return (
-    <div
-      ref={node => drag(node)}
-      className={styles.control_item}
-      style={{ opacity }}
-    >
-      {text}
-    </div>
+    <>
+      <DragPreviewImage connect={preview} src={buttonPreview} />
+      <div
+        ref={node => drag(node)}
+        className={styles.control_item}
+        style={{ opacity }}
+      >
+        {text}
+      </div>
+    </>
   );
 };
 
