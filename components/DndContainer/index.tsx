@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 23:25:56
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-14 11:00:32
+ * @LastEditTime: 2022-04-14 13:53:52
  * @FilePath: /first-low-code-demo/components/DndContainer/index.tsx
  */
 
@@ -57,18 +57,9 @@ const DnDContainer: React.FC<any> = props => {
 
   return (
     <div
-      className={styles.dnd_container}
-      style={{ opacity }}
+      style={{ opacity, marginBottom: '10px' }}
       ref={node => drag(drop(node))}
     >
-      <div
-        onClick={() => {
-          removeControlItem(id);
-        }}
-        className={styles.delete_icon}
-      >
-        x
-      </div>
       {props.children}
     </div>
   );

@@ -1,7 +1,8 @@
 .main {
-  height: 100vh;
+  height: 750px;
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 .controls {
   background-color: #abd1e139;
@@ -23,25 +24,22 @@
   padding: 10px;
 }
 
-.dnd_container {
+.button_controller {
   position: relative;
-}
-
-.dnd_container:hover {
   border: 1px dashed black;
 }
 
-.dnd_container .delete_icon {
-  opacity: 0;
+.basic_delete_icon {
   position: absolute;
   width: 20px;
   height: 20px;
-  text-align: center;
-  transform: translate(50%, -50%);
   right: 0px;
   top: 0px;
   cursor: pointer;
+  text-align: center;
+  opacity: 0;
+  transform: translate(50%, -50%);
 }
-.dnd_container:hover .delete_icon {
+.show_delete_icon {
   opacity: 1;
 }
