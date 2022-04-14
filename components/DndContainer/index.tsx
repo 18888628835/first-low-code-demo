@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 23:25:56
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-14 10:00:17
+ * @LastEditTime: 2022-04-14 10:24:58
  * @FilePath: /first-low-code-demo/components/DndContainer/index.tsx
  */
 /*
@@ -14,6 +14,7 @@
  */
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import styles from '@/styles/Home.module.css';
 import * as ItemTypes from '@/pages/ItemTypes';
 
 const DnDContainer: React.FC<any> = props => {
@@ -61,7 +62,12 @@ const DnDContainer: React.FC<any> = props => {
   });
 
   return (
-    <div style={{ opacity }} ref={node => drag(drop(node))}>
+    <div
+      className={styles.dnd_container}
+      style={{ opacity }}
+      ref={node => drag(drop(node))}
+    >
+      <div className={styles.delete_icon}>x</div>
       {props.children}
     </div>
   );

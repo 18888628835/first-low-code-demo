@@ -22,3 +22,26 @@
   height: 100%;
   padding: 10px;
 }
+
+.dnd_container {
+  position: relative;
+}
+
+.dnd_container:hover {
+  border: 1px dashed black;
+}
+
+.dnd_container .delete_icon {
+  opacity: 0;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  transform: translate(50%, -50%);
+  right: 0px;
+  top: 0px;
+  cursor: pointer;
+}
+.dnd_container:hover .delete_icon {
+  opacity: 1;
+}
