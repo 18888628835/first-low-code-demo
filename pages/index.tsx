@@ -84,13 +84,9 @@ const Home: NextPage = () => {
         return;
       }
       const ids = dragList.map(({ id }) => id);
-      let _dragList = [
-        ...dragList,
-        {
-          type,
-          id: Math.max.apply(null, ids) + 1 || getUuid(),
-        },
-      ];
+      let id = ids.length > 0 ? Math.max.apply(null, ids) + 1 : getUuid();
+
+      let _dragList = [...dragList, { type, id }];
 
       setDragList(_dragList);
     },
