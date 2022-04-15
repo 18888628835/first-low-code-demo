@@ -2,8 +2,8 @@
  * @Author: 邱彦兮
  * @Date: 2022-03-08 21:40:30
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-03-09 00:11:20
- * @FilePath: /Simpler-Components/src/Button/types.d.ts
+ * @LastEditTime: 2022-04-15 17:15:49
+ * @FilePath: /first-low-code-demo/components/Button/types.d.ts
  */
 
 export type BaseButtonProps = {
@@ -35,4 +35,8 @@ export type BaseButtonProps = {
    * @description 边框模式
    */
   variant: 'outline';
+  /**
+   * @description 铺满
+   */
+  block: boolean;
 };

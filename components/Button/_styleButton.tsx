@@ -1,21 +1,6 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.button`
-  --base-color: rgba(0, 0, 0, 0.87);
-  --default-bg-color: #e0e0e0;
-  --primary-bg-color: #1976d2;
-  --danger-bg-color: rgb(220, 0, 78);
-  --disabled-bg-color: rgba(0, 0, 0, 0.12);
-  --default-hover-bg-color: #d5d5d5;
-  --primary-hover-bg-color: rgb(17, 82, 147);
-  --danger-hover-bg-color: rgb(154, 0, 54);
-  --disabled-color: rgba(0, 0, 0, 0.26);
-  --outline-default-bg-color: rgba(0, 0, 0, 0.04);
-  --outline-primary-bd-color: rgba(25, 118, 210, 0.5);
-  --outline-default-bd-color: rgba(0, 0, 0, 0.23);
-  --outline-hover-bg-color: rgba(25, 118, 210, 0.04);
-  --outline-danger-bd-color: rgba(220, 0, 78, 0.5);
-  --outline-danger-bg-color: rgba(220, 0, 78, 0.04);
   /* Button默认样式 */
   &.btn {
     color: var(--base-color);
@@ -24,18 +9,20 @@ export const Wrap = styled.button`
     position: relative;
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-size: 15.75px;
-    display: inline-block;
     font-weight: 500;
     line-height: 1.75;
     white-space: nowrap;
+    display: inline-block;
     cursor: pointer;
     outline: none;
     padding: 4px 15px;
-    width: 100%;
     transition: all 0.3s;
     border: none;
     border-radius: 4px;
     overflow: hidden;
+  }
+  &.btn_block {
+    width: 100%;
   }
   /* default样式 */
   &.btn-default {

@@ -2,7 +2,7 @@
  * @Author: 邱彦兮
  * @Date: 2022-04-13 17:22:00
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-14 13:00:28
+ * @LastEditTime: 2022-04-15 17:15:34
  * @FilePath: /first-low-code-demo/components/ButtonController/index.tsx
  */
 import React, { useRef, useState } from 'react';
@@ -40,6 +40,7 @@ const ButtonController: React.FC<ButtonControllerProps> = props => {
         x
       </div>
       <Button
+        block
         btnType={allBtnType[index]}
         onClick={() => {
           setHiddenRemoveIcon(!hiddenRemoveIcon);

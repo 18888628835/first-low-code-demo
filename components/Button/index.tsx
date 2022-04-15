@@ -2,8 +2,8 @@
  * @Author: 邱彦兮
  * @Date: 2021-10-12 11:11:55
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-03-16 16:49:17
- * @FilePath: /Simpler-Components/src/Button/index.tsx
+ * @LastEditTime: 2022-04-15 18:48:39
+ * @FilePath: /first-low-code-demo/components/Button/index.tsx
  */
 import classnames from 'classnames';
 import React, {
@@ -23,7 +23,7 @@ export type ButtonProps = Partial<
     Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
 >;
 
-const Button: React.FC<ButtonProps> = (props) => {
+const Button: React.FC<ButtonProps> = props => {
   const {
     className,
     disabled = false,
@@ -32,6 +32,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     children,
     href,
     variant,
+    block = false,
     ...restProps
   } = props;
   // 默认为btn, 根据传入的BaseButtonProps可变成btn-primary,btn-large等
@@ -39,9 +40,11 @@ const Button: React.FC<ButtonProps> = (props) => {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
     [`btn-${variant}`]: variant,
+    btn_block: block,
     disabled: btnType === 'link' && disabled,
     [className!]: className,
   });
+
   const button = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (button.current) {
@@ -67,8 +70,8 @@ const Button: React.FC<ButtonProps> = (props) => {
         href={href}
         className={classes}
         {...restProps}
-        target="_blank"
-        rel="noreferrer"
+        target='_blank'
+        rel='noreferrer'
       >
         {children}
       </a>

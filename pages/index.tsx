@@ -2,20 +2,22 @@
  * @Author: 邱彦兮
  * @Date: 1985-10-26 16:15:00
  * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-14 14:40:25
+ * @LastEditTime: 2022-04-15 17:57:27
  * @FilePath: /first-low-code-demo/pages/index.tsx
  */
 import type { NextPage } from 'next';
-import styles from '../styles/Home.module.css';
-import ButtonController from '@/components/ButtonController';
-import DragControlItem from '@/components/DragControlItem';
 import { DndProvider } from 'react-dnd';
+import styles from '../styles/Home.module.css';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { useCallback, useState } from 'react';
-import DropContainer from '@/components/DropContainer';
+import { useCallback, useEffect, useState } from 'react';
+import { message, notification } from 'antd';
 import { getUuid } from '@/utils/uuid';
+import DropContainer from '@/components/DropContainer';
+import DragControlItem from '@/components/DragControlItem';
+import ButtonController from '@/components/ButtonController';
 import DnDContainer from '@/components/DndContainer';
-import { notification } from 'antd';
+import Button from '@/components/Button';
+import { _updateButtons, _getButtons } from 'service/services';
 
 const strategy = {
   BUTTON: 'BUTTON',
@@ -30,6 +32,10 @@ const controlsList: Array<ControlsItem> = [
 ];
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    _getButtons('/api/get/buttons').then(res => setDragList(res.data.data));
+  }, []);
+
   const [dragList, setDragList] = useState<DragListItem[]>([]);
 
   // 查询某一个可被拖拽组件
@@ -46,7 +52,7 @@ const Home: NextPage = () => {
   );
   // 移动某一个可被拖拽组件
   const moveItem = useCallback(
-    function (dragId: number, atIndex: number) {
+    async function (dragId: number, atIndex: number) {
       let { targetIndex, card } = findItem(dragId);
       let _dragList = [...dragList];
 
@@ -76,14 +82,16 @@ const Home: NextPage = () => {
   }, []);
   // 移动控件
   const moveControlItem = useCallback(
-    (type: ControlsType) => {
+    async (type: ControlsType) => {
       if (!ButtonCountValidator(dragList)) {
         return;
       }
-      setDragList(oldState => {
-        let _dragList = [...oldState, { type, id: getUuid() }];
-        return _dragList;
-      });
+      let _dragList = [
+        ...dragList,
+        { type, id: dragList[dragList.length - 1]?.id + 1 || getUuid() },
+      ];
+
+      setDragList(_dragList);
     },
     [ButtonCountValidator, dragList]
   );
@@ -116,7 +124,13 @@ const Home: NextPage = () => {
       )),
     [dragList, findItem, moveItem, removeControlItem]
   );
-
+  async function save() {
+    const res = await _updateButtons('/api/update/buttons', {
+      data: dragList,
+    });
+    if (res.data) message.success('保存成功');
+    setDragList(JSON.parse(res.data?.data));
+  }
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.main}>
@@ -125,7 +139,14 @@ const Home: NextPage = () => {
             {renderDndArea()}
           </DropContainer>
         </div>
-        <div className={styles.controls}>{renderControlsList()}</div>
+
+        <div className={styles.controls}>
+          {renderControlsList()}
+          <div style={{ height: '20px' }}></div>
+          <Button btnType='danger' variant='outline' onClick={save}>
+            保存
+          </Button>
+        </div>
       </div>
     </DndProvider>
   );

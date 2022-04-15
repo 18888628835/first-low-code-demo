@@ -14,3 +14,20 @@ a {
 * {
   box-sizing: border-box;
 }
+:root {
+  --base-color: rgba(0, 0, 0, 0.87);
+  --default-bg-color: #e0e0e0;
+  --primary-bg-color: #1976d2;
+  --danger-bg-color: rgb(220, 0, 78);
+  --disabled-bg-color: rgba(0, 0, 0, 0.12);
+  --default-hover-bg-color: #d5d5d5;
+  --primary-hover-bg-color: rgb(17, 82, 147);
+  --danger-hover-bg-color: rgb(154, 0, 54);
+  --disabled-color: rgba(0, 0, 0, 0.26);
+  --outline-default-bg-color: rgba(0, 0, 0, 0.04);
+  --outline-primary-bd-color: rgba(25, 118, 210, 0.5);
+  --outline-default-bd-color: rgba(0, 0, 0, 0.23);
+  --outline-hover-bg-color: rgba(25, 118, 210, 0.04);
+  --outline-danger-bd-color: rgba(220, 0, 78, 0.5);
+  --outline-danger-bg-color: rgba(220, 0, 78, 0.04);
+}
