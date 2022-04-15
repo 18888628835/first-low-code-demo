@@ -1,10 +1,3 @@
-/*
- * @Author: 邱彦兮
- * @Date: 1985-10-26 16:15:00
- * @LastEditors: 邱彦兮
- * @LastEditTime: 2022-04-15 17:57:27
- * @FilePath: /first-low-code-demo/pages/index.tsx
- */
 import type { NextPage } from 'next';
 import { DndProvider } from 'react-dnd';
 import styles from '../styles/Home.module.css';
@@ -12,12 +5,16 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useCallback, useEffect, useState } from 'react';
 import { message, notification } from 'antd';
 import { getUuid } from '@/utils/uuid';
-import DropContainer from '@/components/DropContainer';
-import DragControlItem from '@/components/DragControlItem';
-import ButtonController from '@/components/ButtonController';
-import DnDContainer from '@/components/DndContainer';
-import Button from '@/components/Button';
+import * as components from '@/components/index';
 import { _updateButtons, _getButtons } from 'service/services';
+
+const {
+  DropContainer,
+  DragControlItem,
+  ButtonController,
+  DndContainer,
+  Button,
+} = components;
 
 const strategy = {
   BUTTON: 'BUTTON',
@@ -118,9 +115,9 @@ const Home: NextPage = () => {
   const renderDndArea = useCallback(
     () =>
       dragList.map(({ type, id }, index) => (
-        <DnDContainer key={id} {...{ type, id, index, moveItem, findItem }}>
+        <DndContainer key={id} {...{ type, id, index, moveItem, findItem }}>
           <ButtonController {...{ id, removeControlItem }} />
-        </DnDContainer>
+        </DndContainer>
       )),
     [dragList, findItem, moveItem, removeControlItem]
   );
