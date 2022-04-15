@@ -83,9 +83,13 @@ const Home: NextPage = () => {
       if (!ButtonCountValidator(dragList)) {
         return;
       }
+      const ids = dragList.map(({ id }) => id);
       let _dragList = [
         ...dragList,
-        { type, id: dragList[dragList.length - 1]?.id + 1 || getUuid() },
+        {
+          type,
+          id: Math.max.apply(null, ids) + 1 || getUuid(),
+        },
       ];
 
       setDragList(_dragList);
@@ -121,6 +125,7 @@ const Home: NextPage = () => {
       )),
     [dragList, findItem, moveItem, removeControlItem]
   );
+
   async function save() {
     const res = await _updateButtons('/api/update/buttons', {
       data: dragList,
